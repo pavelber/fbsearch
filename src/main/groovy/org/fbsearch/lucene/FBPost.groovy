@@ -10,6 +10,7 @@ class FBPost {
     String description
     String url
     IndexedType type
+    String username
     long date
 
     boolean equals(final o) {

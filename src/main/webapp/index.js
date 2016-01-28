@@ -11,6 +11,13 @@ app.controller('SearchCtrl', ['$scope', '$http', '$location', function ($scope, 
     $scope.url = '/search'; // The url of our search
     $scope.year = params['year'];
     $scope.keywords = params['keywords'];
+    var currentYear = new Date().getFullYear();
+    $scope.years = [];
+    var startYear = 2005;
+
+    while ( startYear <= currentYear ) {
+        $scope.years.push(startYear++);
+    }
 
    /* $http.get("/journals").
         success(function (data, status) {
@@ -40,16 +47,16 @@ app.controller('SearchCtrl', ['$scope', '$http', '$location', function ($scope, 
             $scope.messages = data || "Request failed";
             $scope.newsstatus = status;
         });*/
-    $http.get("/years").
+    $http.get("/user").
         success(function (data, status) {
-            $scope.yearsstatus = status;
-            $scope.years = data;
+            $scope.userstatus = status;
+            $scope.user = data;
 
         })
         .
         error(function (data, status) {
-            $scope.years = data || "Request failed";
-            $scope.yearsstatus = status;
+            $scope.user = data || "Request failed";
+            $scope.userstatus = status;
         });
 
     // The function that will be executed on button click (ng-click="search()")

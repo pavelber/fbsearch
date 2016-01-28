@@ -34,7 +34,7 @@ public class AccountConnectionSignUpService implements ConnectionSignUp {
             startDownloads = beanFactory.getBean(IStartDownloads.class); // to prevent circular ref
         }
         org.springframework.social.connect.UserProfile profile = connection.fetchUserProfile();
-        String userId = UUID.randomUUID().toString();
+        String userId = UUID.randomUUID().toString().replace("-","");
         usersDao.createUser(userId, new UserProfile(userId, profile));
         startDownloads.downloadForUser(userRepository.findOne(userId)); // should be async
         return userId;

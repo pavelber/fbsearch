@@ -17,6 +17,7 @@ final class  LuceneBinding {
     static final String DESCRIPTION_FIELD = "description";
     static final String URL_FIELD = "url";
     static final String DATE_FIELD = "date";
+    static final String USER_FIELD = "user";
 
 
     static final String TYPE_FIELD = "contenttype";

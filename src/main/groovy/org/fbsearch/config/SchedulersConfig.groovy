@@ -3,8 +3,6 @@ package org.fbsearch.config
 import org.fbsearch.entity.UserProfileRepository
 import org.fbsearch.lucene.LuceneIndexer
 import org.fbsearch.services.IStartDownloads
-import org.fbsearch.services.NewDownloads
-import org.fbsearch.services.StartDownloads
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,6 +24,7 @@ class SchedulersConfig implements SchedulingConfigurer {
     static Logger logger = LoggerFactory.getLogger(SchedulersConfig.class)
     private static final long ONE_DAY = 24 * 60 * 60 * 1000L
     private static final long TEN_MINS = 10 * 60 * 1000L
+    private static final long ONE_HOUR = 60 * 60 * 1000L
 
     @Autowired
     UserProfileRepository repo
@@ -39,8 +38,6 @@ class SchedulersConfig implements SchedulingConfigurer {
     @Autowired
     IStartDownloads startDownloads;
 
-    @Autowired
-    NewDownloads newDownloads;
 
 
     @Bean
@@ -55,7 +52,6 @@ class SchedulersConfig implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        taskRegistrar.addFixedRateTask(startDownloads, ONE_DAY); // Only if normal downloading after connect was interrupted
-        taskRegistrar.addFixedRateTask(newDownloads, TEN_MINS);
+        taskRegistrar.addFixedRateTask(startDownloads, ONE_HOUR);
     }
 }

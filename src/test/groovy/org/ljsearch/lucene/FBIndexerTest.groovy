@@ -29,6 +29,7 @@ class FBIndexerTest extends Specification {
 
         indexer.add(new FBPost(
                 url: "1",
+                username: "facee9160d0e42ecb6cd859b4526eb40",
                 date: new Date(2014,4,4).time,
                 caption: "hexbug.com",message: "Купил hexbugs\n" +
                 "https://www.hexbug.com/hexbug-battle-spider.html\n" +
@@ -39,6 +40,7 @@ class FBIndexerTest extends Specification {
                 link: "https://www.hexbug.com/hexbug-battle-spider.html"));
         indexer.add(new FBPost(
                 url: "2",
+                username: "facee9160d0e42ecb6cd859b4526eb40",
                 date: new Date(2015,4,4).time,
                 message: "test for search\n" +
                         "проверка связи\n" +
@@ -53,54 +55,54 @@ class FBIndexerTest extends Specification {
 
     def "test empty"() {
         when:
-        def res = seacher.search(null, null, null)
+        def res = seacher.search("facee9160d0e42ecb6cd859b4526eb40",null, null, null)
         then:
         res.size() == 0
     }
 
     def "test text"() {
         when:
-        def res = seacher.search("нету", null, null)
+        def res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","нету", null, null)
         then:
         res.size() == 0
 
         when:
-        res = seacher.search("Купил", null, null)
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","Купил", null, null)
         then:
         res.size() == 1
 
         when:
-        res = seacher.search("больно медленно", null, null)
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","больно медленно", null, null)
         then:
         res[0].url == "1"
         res.size() == 1
 
         when:
-        res = seacher.search("внимания", null, null)
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","внимания", null, null)
         then:
         res.size() == 1
         res[0].url == "2"
 
         when:
-        res = seacher.search("ходит", null, null)
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","ходит", null, null)
         then:
         res.size() == 1
         res[0].url == "1"
 
         when:
-        res = seacher.search("battle", null, null)
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","battle", null, null)
         then:
         res.size() == 1
         res[0].url == "1"
 
         when:
-        res = seacher.search("spider", null, null)
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","spider", null, null)
         then:
         res.size() == 1
         res[0].url == "1"
 
         when:
-        res = seacher.search("spiders", null, null)
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","spiders", null, null)
         then:
         res.size() == 1
         res[0].url == "1"
@@ -110,29 +112,29 @@ class FBIndexerTest extends Specification {
 
     def "test dates"() {
         when:
-        def res = seacher.search( "battle", new Date(2000, 1, 1), null)
+        def res = seacher.search("facee9160d0e42ecb6cd859b4526eb40", "battle", new Date(2000, 1, 1), null)
         then:
         res.size() == 1
         res[0].url == "1"
 
         when:
-        res = seacher.search("battles", new Date(2000, 1, 1), new Date(2015, 1, 1))
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40","battles", new Date(2000, 1, 1), new Date(2015, 1, 1))
         then:
         res.size() == 1
         res[0].url == "1"
 
         when:
-        res = seacher.search( "мыши", new Date(2000, 1, 1), new Date(2016, 1, 1))
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40", "мыши", new Date(2000, 1, 1), new Date(2016, 1, 1))
         then:
         res.size() == 2
 
         when:
-        res = seacher.search( "обращать", new Date(2014, 1, 1), new Date(2016, 1, 1))
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40", "обращать", new Date(2014, 1, 1), new Date(2016, 1, 1))
         then:
         res[0].url == "2"
 
         when:
-        res = seacher.search( "обращать", new Date(2014, 1, 1), new Date(2015, 5, 1))
+        res = seacher.search("facee9160d0e42ecb6cd859b4526eb40", "обращать", new Date(2014, 1, 1), new Date(2015, 5, 1))
         then:
         res[0].url == "2"
     }

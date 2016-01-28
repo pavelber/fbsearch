@@ -38,9 +38,9 @@ class LuceneSearcher implements ISearcher {
     }
 
     @Override
-    Set<FBPost> search(String text, Date from, Date to) {
+    Set<FBPost> search(String username, String text, Date from, Date to) {
 
-        synchronized (this) {//todo bad
+        synchronized (this) {
             if (mgr == null) {
                 init()
             }
@@ -53,7 +53,7 @@ class LuceneSearcher implements ISearcher {
                 from != null || to != null
         ) {
             try {
-                Query q = QueryHelper.generate(text, from, to);
+                Query q = QueryHelper.generate(text, username, from, to);
                 SortField startField = new SortField(LuceneBinding.DATE_FIELD, SortField.Type.STRING_VAL, true);
 
                 Sort sort = new Sort(startField);

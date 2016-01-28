@@ -76,6 +76,7 @@ public class LuceneIndexer implements IIndexer {
         doc.add(new SortedDocValuesField(LuceneBinding.DATE_FIELD, new BytesRef(value)));
         addField(post.url, doc, LuceneBinding.URL_FIELD);
         addField(post.link, doc, LuceneBinding.LINK_FIELD);
+        addField(post.username, doc, LuceneBinding.USER_FIELD);
         addTextField(post.caption, doc, LuceneBinding.CAPTION_FIELD, LuceneBinding.RUS_CAPTION_FIELD, LuceneBinding.ENG_CAPTION_FIELD);
         addTextField(post.description, doc, LuceneBinding.DESCRIPTION_FIELD, LuceneBinding.RUS_DESCRIPTION_FIELD, LuceneBinding.ENG_DESCRIPTION_FIELD);
         addTextField(post.message, doc, LuceneBinding.MESSAGE_FIELD, LuceneBinding.RUS_MESSAGE_FIELD, LuceneBinding.ENG_MESSAGE_FIELD);

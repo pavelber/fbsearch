@@ -1,16 +1,16 @@
-package org.fbsearch.lucene;
+package org.fbsearch.lucene
 
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.*;
-import org.apache.lucene.util.BytesRef;
-import org.fbsearch.IndexedType;
-
-import java.util.Date;
+import org.apache.commons.lang3.StringUtils
+import org.apache.lucene.index.Term
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser
+import org.apache.lucene.queryparser.classic.ParseException
+import org.apache.lucene.queryparser.classic.QueryParser
+import org.apache.lucene.search.BooleanClause
+import org.apache.lucene.search.BooleanQuery
+import org.apache.lucene.search.Query
+import org.apache.lucene.search.TermQuery
+import org.apache.lucene.search.TermRangeQuery
+import org.apache.lucene.util.BytesRef
 
 public final class QueryHelper {
 
@@ -33,9 +33,9 @@ public final class QueryHelper {
                         LuceneBinding.ENG_MESSAGE_FIELD,
                         LuceneBinding.ENG_NAME_FIELD,
                         /* Hebrew */
-                       // LuceneBinding.HEB_TITLE_FIELD,
-                       // LuceneBinding.HEB_CONTENT_FIELD
-                        ] as String[],
+                        // LuceneBinding.HEB_TITLE_FIELD,
+                        // LuceneBinding.HEB_CONTENT_FIELD
+                ] as String[],
                 LuceneBinding.getAnalyzer());
 
         /* Operator OR is used by default */
@@ -46,14 +46,16 @@ public final class QueryHelper {
     }
 
 
-    public static Query generate(String words, Date dateFrom, Date dateTo) throws ParseException {
+    public static Query generate(String words, String username, Date dateFrom, Date dateTo) throws ParseException {
 
-        BooleanQuery.Builder builder = new BooleanQuery.Builder();;
+        BooleanQuery.Builder builder = new BooleanQuery.Builder(); ;
         if (!StringUtils.isEmpty(words)) {
             Query qf = generate(words);
             builder = builder.add(qf, BooleanClause.Occur.MUST);
         }
 
+        Query qf = new TermQuery(new Term(LuceneBinding.USER_FIELD, username    ));
+        builder = builder.add(qf, BooleanClause.Occur.MUST);
 
         if (dateFrom != null || dateTo != null) {
             TermRangeQuery dateQuery = new TermRangeQuery(LuceneBinding.DATE_FIELD,
