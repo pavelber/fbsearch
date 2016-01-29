@@ -8,7 +8,7 @@ app.filter('trustAsHtml', function ($sce) {
 
 app.controller('SearchCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     params = $location.search();
-    $scope.url = '/search'; // The url of our search
+    $scope.url = '/fbsearch/search'; // The url of our search
     $scope.year = params['year'];
     $scope.keywords = params['keywords'];
     var currentYear = new Date().getFullYear();
@@ -47,7 +47,7 @@ app.controller('SearchCtrl', ['$scope', '$http', '$location', function ($scope, 
             $scope.messages = data || "Request failed";
             $scope.newsstatus = status;
         });*/
-    $http.get("/user").
+    $http.get("/fbsearch/user").
         success(function (data, status) {
             $scope.userstatus = status;
             $scope.user = data;

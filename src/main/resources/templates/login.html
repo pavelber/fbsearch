@@ -34,9 +34,13 @@
 
             <table style="border-collapse: separate; border-spacing: 2px">
                 <tr>
-                    <td><a th:href="@{/auth/facebook}" class="ml btn btn-block btn-social btn-sm btn-facebook"><i class="fa fa-facebook"></i>Facebook</a></td>
+                    <td><a th:href="@{/auth/facebook?scope=user_posts,public_profile,email}" class="ml btn btn-block btn-social btn-sm btn-facebook"><i class="fa fa-facebook"></i>Facebook</a></td>
                 </tr>
             </table>
+           <!-- <form action="/auth/facebook"  method="GET">
+            <input type="hidden" name="scope" value="user_posts,public_profile,email" />
+            <p><button  type="submit" class="ml btn btn-block btn-social btn-sm btn-facebook">"Facebook"</button></p>
+            </form>-->
 
             <div th:include="fragments/exception :: errorInfo"/>
 

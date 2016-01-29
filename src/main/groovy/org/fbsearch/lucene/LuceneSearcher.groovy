@@ -83,9 +83,17 @@ class LuceneSearcher implements ISearcher {
                     if (content == null) {
                         content = d.get(LuceneBinding.LINK_FIELD)
                     }
+                    if (content == null || content.length() == 0) {
+                        content = "<no message>"
+                    }
 
+                    String citation;
 
-                    String citation = createCitation(q, content)
+                    if (text != null && text.length() > 0) {
+                        citation = createCitation(q, content)
+                    } else {
+                        citation = content
+                    }
                     results << new FBPost(
                             name: d.get(LuceneBinding.NAME_FIELD),
                             caption: d.get(LuceneBinding.CAPTION_FIELD),

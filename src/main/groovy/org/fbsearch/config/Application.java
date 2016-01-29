@@ -2,6 +2,7 @@ package org.fbsearch.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
@@ -20,7 +21,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @PropertySources({
         @PropertySource("classpath:application.properties"),
         @PropertySource("file:${user.home}/properties/fbsearch.properties")})
-public class Application {
+public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
